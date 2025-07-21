@@ -13,10 +13,14 @@ export const Home: React.FC = () => {
   useEffect(() => {
     const loadFeaturedProducts = async () => {
       try {
+        console.log('Loading featured products...');
         const products = await productService.getFeaturedProducts();
+        console.log('Featured products loaded:', products);
         setFeaturedProducts(products);
       } catch (error) {
         console.error('Failed to load featured products:', error);
+        // Set empty array to prevent loading state from hanging
+        setFeaturedProducts([]);
       } finally {
         setIsLoading(false);
       }

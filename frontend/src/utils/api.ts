@@ -16,10 +16,13 @@ class ApiClient {
   }
 
   private async handleResponse<T>(response: Response): Promise<T> {
+    console.log(`API Request: ${response.url} - Status: ${response.status}`);
+    
     if (!response.ok) {
       const error = await response.json().catch(() => ({
         message: 'An error occurred'
       }));
+      console.error('API Error:', error);
       throw new Error(error.message || 'Request failed');
     }
     return response.json();
