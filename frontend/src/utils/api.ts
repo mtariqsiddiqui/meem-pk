@@ -22,10 +22,13 @@ class ApiClient {
       const error = await response.json().catch(() => ({
         message: 'An error occurred'
       }));
-      console.error('API Error:', error);
+      console.error('API Error Response:', error);
       throw new Error(error.message || 'Request failed');
     }
-    return response.json();
+    
+    const data = await response.json();
+    console.log('API Response Data:', data);
+    return data;
   }
 
   async get<T>(endpoint: string): Promise<T> {
